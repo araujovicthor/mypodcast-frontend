@@ -68,7 +68,7 @@ const Categories: React.FC = () => {
     api
       .get(`/channels/${id}`)
       .then(response => setChannel(response.data))
-      .catch(() => alert('Não foi possível carregar categorias'));
+      .catch(() => alert('Não foi possível carregar o canal'));
   }, [id]);
 
   const handleAddPodcast = useCallback(
@@ -134,14 +134,14 @@ const Categories: React.FC = () => {
 
         data.append('file', e.target.files[0]);
 
-        const response = await api.patch<IPodcast>(
-          `/podcasts/${podcast.id}/file`,
-          data,
-        );
-
-        if (response?.data) {
-          handleEditPodcast(response.data);
-        }
+        api
+          .patch<IPodcast>(`/podcasts/${podcast.id}/file`, data)
+          .then(response => {
+            handleEditPodcast(response.data);
+          })
+          .catch(() => {
+            alert('Erro ao enviar arquivo');
+          });
       }
     },
     [handleEditPodcast],
@@ -231,6 +231,7 @@ const Categories: React.FC = () => {
                       <input
                         type="file"
                         id="file"
+                        accept="audio/mpeg"
                         onChange={e => handleFileChange(e, podcast)}
                       />
                     </label>
