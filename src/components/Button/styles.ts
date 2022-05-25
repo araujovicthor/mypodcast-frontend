@@ -14,13 +14,27 @@ export const Container = styled.button<IContainerButton>`
   width: 100%;
   outline: none;
   color: #fff;
-  background: blue;
+  background: #003881;
   font-weight: bold;
   transition: background 0.2s, box-shadow 0.2s;
   font-size: 16px;
 
   &:hover {
-    background:darkblue;
+    background: #080d4e;
+  }
+
+  &.back {
+    &:hover {
+      background: #e0e0e0;
+    }
+  }
+
+  &.cancel {
+    background-color: #c9291b;
+
+    &:hover {
+      background: #ef1818;
+    }
   }
 
   ${props =>
@@ -38,4 +52,3 @@ export const Container = styled.button<IContainerButton>`
       cursor: default;
     `}
 `;
- 

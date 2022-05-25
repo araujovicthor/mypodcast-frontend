@@ -21,7 +21,7 @@ const Header: React.FC = () => {
             navigate('/dashboard');
           }}
         >
-          <img src={logo} alt="My poadcast" />
+          <img src={logo} alt="My podcast" />
         </button>
         <HeaderRight>
           <span>{user.name}</span>

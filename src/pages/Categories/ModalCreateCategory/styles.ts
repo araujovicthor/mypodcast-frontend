@@ -34,11 +34,10 @@ export const Bottom = styled.div`
   margin-top: 16px;
 
   .back {
-    background-color:#E4E4EB ;
-    color: #033A40;
+    background-color: #e4e4eb;
+    color: #033a40;
   }
 
   .confirm {
-
   }
 `;

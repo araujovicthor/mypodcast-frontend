@@ -7,32 +7,32 @@ import getValidationErrors from '../../../utils/getValidationErrors';
 import Button from '../../../components/Button';
 
 import { Container, Bottom } from './styles';
-import { ICategory } from '..';
+import { IPodcast } from '..';
 import api from '../../../services/api';
 
-interface IModalDeleteCategoryProps {
-  handleRemoveCategory(newCategory: ICategory): void;
-  dataShowModalDeleteCategory: ICategory | null;
-  setDataShowModalDeleteCategory(data: ICategory | null): void;
+interface IModalDeletePodcastProps {
+  handleRemovePodcast(newPodcast: IPodcast): void;
+  dataShowModalDeletePodcast: IPodcast | null;
+  setDataShowModalDeletePodcast(data: IPodcast | null): void;
 }
 
-export const ModalDeleteCategory: React.FC<IModalDeleteCategoryProps> = ({
-  handleRemoveCategory,
-  dataShowModalDeleteCategory,
-  setDataShowModalDeleteCategory,
+export const ModalDeletePodcast: React.FC<IModalDeletePodcastProps> = ({
+  handleRemovePodcast,
+  dataShowModalDeletePodcast,
+  setDataShowModalDeletePodcast,
 }) => {
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmit = useCallback(async () => {
-    if (dataShowModalDeleteCategory) {
+    if (dataShowModalDeletePodcast) {
       try {
         const response = await api.delete(
-          `/categories/${dataShowModalDeleteCategory.id}`,
+          `/podcasts/${dataShowModalDeletePodcast.id}`,
         );
 
         if (response) {
-          handleRemoveCategory(dataShowModalDeleteCategory);
-          setDataShowModalDeleteCategory(null);
+          handleRemovePodcast(dataShowModalDeletePodcast);
+          setDataShowModalDeletePodcast(null);
         }
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
@@ -40,29 +40,26 @@ export const ModalDeleteCategory: React.FC<IModalDeleteCategoryProps> = ({
           formRef.current?.setErrors(errors);
           return;
         } else {
-          alert('Não foi possível deletar categoria');
+          alert('Não foi possível deletar podcast');
         }
       }
     }
   }, [
-    dataShowModalDeleteCategory,
-    handleRemoveCategory,
-    setDataShowModalDeleteCategory,
+    dataShowModalDeletePodcast,
+    handleRemovePodcast,
+    setDataShowModalDeletePodcast,
   ]);
 
   return (
     <Container>
-      <h1>Apagar Categoria</h1>
+      <h1>Apagar Podcast</h1>
 
-      <p>
-        Tem certeza que gostaria de apagar essa categoria? Todas os canais que
-        possuem essa categoria serão afetadas por essa ação
-      </p>
+      <p>Tem certeza que gostaria de apagar esse podcast?</p>
 
       <Bottom>
         <Button
           type="button"
-          onClick={() => setDataShowModalDeleteCategory(null)}
+          onClick={() => setDataShowModalDeletePodcast(null)}
           className="back"
         >
           Voltar

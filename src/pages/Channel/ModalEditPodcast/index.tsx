@@ -9,34 +9,34 @@ import Button from '../../../components/Button';
 
 import Input from '../../../components/Input';
 import { Container, Bottom } from './styles';
-import { ICategory } from '..';
+import { IPodcast } from '..';
 import api from '../../../services/api';
 
-interface IModalEditCategoryFormData {
+interface IModalEditPodcastFormData {
   title: string;
 }
 
-interface IModalEditCategoryProps {
-  handleEditCategory(newCategory: ICategory): void;
-  dataShowModalEditCategory: ICategory | null;
-  setDataShowModalEditCategory(data: ICategory | null): void;
+interface IModalEditPodcastProps {
+  handleEditPodcast(newPodcast: IPodcast): void;
+  dataShowModalEditPodcast: IPodcast | null;
+  setDataShowModalEditPodcast(data: IPodcast | null): void;
 }
 
-export const ModalEditCategory: React.FC<IModalEditCategoryProps> = ({
-  handleEditCategory,
-  dataShowModalEditCategory,
-  setDataShowModalEditCategory,
+export const ModalEditPodcast: React.FC<IModalEditPodcastProps> = ({
+  handleEditPodcast,
+  dataShowModalEditPodcast,
+  setDataShowModalEditPodcast,
 }) => {
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmit = useCallback(
-    async (data: IModalEditCategoryFormData, { reset }) => {
-      if (dataShowModalEditCategory) {
+    async (data: IModalEditPodcastFormData, { reset }) => {
+      if (dataShowModalEditPodcast) {
         try {
           formRef.current?.setErrors({});
 
           const schema = Yup.object().shape({
-            title: Yup.string().required('Escreva o nome do categoria'),
+            title: Yup.string().required('Escreva o nome do episódio'),
           });
 
           await schema.validate(data, {
@@ -44,14 +44,14 @@ export const ModalEditCategory: React.FC<IModalEditCategoryProps> = ({
           });
 
           const response = await api.put(
-            `/categories/${dataShowModalEditCategory.id}`,
+            `/podcasts/${dataShowModalEditPodcast.id}`,
             data,
           );
 
           if (response?.data) {
-            handleEditCategory(response.data);
+            handleEditPodcast(response.data);
             reset();
-            setDataShowModalEditCategory(null);
+            setDataShowModalEditPodcast(null);
           }
         } catch (err) {
           if (err instanceof Yup.ValidationError) {
@@ -59,43 +59,36 @@ export const ModalEditCategory: React.FC<IModalEditCategoryProps> = ({
             formRef.current?.setErrors(errors);
             return;
           } else {
-            alert('Não foi possível editar categoria');
+            alert('Não foi possível editar o episódio');
           }
         }
       }
     },
-    [
-      handleEditCategory,
-      dataShowModalEditCategory,
-      setDataShowModalEditCategory,
-    ],
+    [handleEditPodcast, dataShowModalEditPodcast, setDataShowModalEditPodcast],
   );
 
   return (
     <Container>
-      <h1>Edição de Categoria</h1>
+      <h1>Edição de Episódio</h1>
 
       <Form
         ref={formRef}
         onSubmit={handleSubmit}
-        initialData={{ title: dataShowModalEditCategory?.title }}
+        initialData={{ title: dataShowModalEditPodcast?.title }}
       >
         <Input
           name="title"
-          label="Categoria"
+          label="Episódio"
           type="text"
-          placeholder="Digite o nome da categoria"
+          placeholder="Digite o nome do episódio"
         />
 
-        <p>
-          Você gostaria de confirmar essa edição de nova categoria? Após essa
-          ação, ela ficará disponível para ser vinculada aos canais
-        </p>
+        <p>Você gostaria de confirmar essa edição de episódio?</p>
 
         <Bottom>
           <Button
             type="button"
-            onClick={() => setDataShowModalEditCategory(null)}
+            onClick={() => setDataShowModalEditPodcast(null)}
             className="back"
           >
             Voltar

@@ -24,18 +24,18 @@ const Dashboard: React.FC = () => {
       name: 'Canais',
       path: '/canais',
     },
+    // {
+    //   id: '3',
+    //   name: 'Episódios',
+    //   path: '/episodios',
+    // },
     {
       id: '3',
-      name: 'Episódios',
-      path: '/episodios',
-    },
-    {
-      id: '4',
       name: 'Favoritos',
       path: '/favoritos',
     },
     {
-      id: '5',
+      id: '4',
       name: 'Usuários',
       path: '/usuarios',
     },

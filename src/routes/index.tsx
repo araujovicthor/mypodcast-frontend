@@ -6,6 +6,9 @@ import SignUp from '../pages/SignUp';
 import NotFound from '../pages/NotFound';
 import Dashboard from '../pages/Dashboard';
 import Categories from '../pages/Categories';
+import Channels from '../pages/Channels';
+import Channel from '../pages/Channel';
+import Follow from '../pages/Follow';
 
 import WrapperRoute from './WrapperRoute';
 
@@ -20,6 +23,9 @@ const AppRoutes: React.FC = () => {
       <Route element={<WrapperRoute type="private" />}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/categorias" element={<Categories />} />
+        <Route path="/canais" element={<Channels />} />
+        <Route path="/canais/:id" element={<Channel />} />
+        <Route path="/favoritos" element={<Follow />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />

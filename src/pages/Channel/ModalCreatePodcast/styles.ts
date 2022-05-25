@@ -11,12 +11,15 @@ export const Container = styled.div`
     width: 100%;
     text-align: center;
   }
-  p {
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 140%;
-    margin-top: 16px;
+
+  form {
+    p {
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 140%;
+      margin-top: 16px;
+    }
   }
 
   @media (min-width: 720px) {
@@ -31,7 +34,11 @@ export const Bottom = styled.div`
   margin-top: 16px;
 
   .back {
-    background-color: #e4e4eb;
-    color: #033a40;
+    background-color:#E4E4EB ;
+    color: #033A40;
+  }
+
+  .confirm {
+
   }
 `;

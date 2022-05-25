@@ -7,32 +7,32 @@ import getValidationErrors from '../../../utils/getValidationErrors';
 import Button from '../../../components/Button';
 
 import { Container, Bottom } from './styles';
-import { ICategory } from '..';
+import { IChannel } from '..';
 import api from '../../../services/api';
 
-interface IModalDeleteCategoryProps {
-  handleRemoveCategory(newCategory: ICategory): void;
-  dataShowModalDeleteCategory: ICategory | null;
-  setDataShowModalDeleteCategory(data: ICategory | null): void;
+interface IModalDeleteChannelProps {
+  handleRemoveChannel(): void;
+  dataShowModalDeleteChannel: IChannel | null;
+  setDataShowModalDeleteChannel(data: IChannel | null): void;
 }
 
-export const ModalDeleteCategory: React.FC<IModalDeleteCategoryProps> = ({
-  handleRemoveCategory,
-  dataShowModalDeleteCategory,
-  setDataShowModalDeleteCategory,
+export const ModalDeleteChannel: React.FC<IModalDeleteChannelProps> = ({
+  handleRemoveChannel,
+  dataShowModalDeleteChannel,
+  setDataShowModalDeleteChannel,
 }) => {
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmit = useCallback(async () => {
-    if (dataShowModalDeleteCategory) {
+    if (dataShowModalDeleteChannel) {
       try {
         const response = await api.delete(
-          `/categories/${dataShowModalDeleteCategory.id}`,
+          `/channels/${dataShowModalDeleteChannel.id}`,
         );
 
         if (response) {
-          handleRemoveCategory(dataShowModalDeleteCategory);
-          setDataShowModalDeleteCategory(null);
+          handleRemoveChannel();
+          setDataShowModalDeleteChannel(null);
         }
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
@@ -40,29 +40,26 @@ export const ModalDeleteCategory: React.FC<IModalDeleteCategoryProps> = ({
           formRef.current?.setErrors(errors);
           return;
         } else {
-          alert('Não foi possível deletar categoria');
+          alert('Não foi possível deletar canal');
         }
       }
     }
   }, [
-    dataShowModalDeleteCategory,
-    handleRemoveCategory,
-    setDataShowModalDeleteCategory,
+    dataShowModalDeleteChannel,
+    handleRemoveChannel,
+    setDataShowModalDeleteChannel,
   ]);
 
   return (
     <Container>
-      <h1>Apagar Categoria</h1>
+      <h1>Apagar Canal</h1>
 
-      <p>
-        Tem certeza que gostaria de apagar essa categoria? Todas os canais que
-        possuem essa categoria serão afetadas por essa ação
-      </p>
+      <p>Tem certeza que gostaria de apagar esse canal?</p>
 
       <Bottom>
         <Button
           type="button"
-          onClick={() => setDataShowModalDeleteCategory(null)}
+          onClick={() => setDataShowModalDeleteChannel(null)}
           className="back"
         >
           Voltar
